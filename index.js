@@ -6,8 +6,8 @@ export const app = new Frog({
   title: 'Base Predict Final',
 })
 
-// Root route for health check
-app.get('/', (c) => c.text('OK'))
+// Railway Health Check
+app.get('/', (c) => c.text('Predict Market is LIVE and STABLE!'))
 
 app.frame('/frame', (c) => {
   return c.res({
@@ -46,11 +46,11 @@ app.transaction('/vote/:side', (c) => {
   })
 })
 
-const port = process.env.PORT || 3000
+const port = Number(process.env.PORT) || 3000
 console.log(`Server starting on port ${port}`)
 
 serve({
   fetch: app.fetch,
-  port: Number(port),
+  port: port,
   hostname: '0.0.0.0'
 })
