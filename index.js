@@ -3,11 +3,8 @@ import { serve } from '@hono/node-server'
 
 const app = new Hono()
 
-// Health check
-app.get('/', (c) => c.text('Predict Market is LIVE and STABLE!'))
-
-// Frame route with standard meta tags
-app.get('/frame', (c) => {
+// The Main Root Link is now the Frame
+app.get('/', (c) => {
   const host = c.req.header('host')
   const imageUrl = "https://emerald-glaring-marlin-155.mythic.be/api/og?title=Base%20Predict&description=Will%20ETH%20hit%20$4000?"
   const txUrl = `https://${host}/api/vote`
@@ -26,7 +23,7 @@ app.get('/frame', (c) => {
         <meta property="fc:frame:button:2:target" content="${txUrl}/no" />
       </head>
       <body>
-        <h1>Base Predict Frame</h1>
+        <h1>Predict Market is LIVE and STABLE!</h1>
       </body>
     </html>
   `)
