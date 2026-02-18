@@ -6,9 +6,7 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "frog": "latest",
     "hono": "latest",
-    "@hono/node-server": "latest",
-    "viem": "latest"
+    "@hono/node-server": "latest"
   }
 }
