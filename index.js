@@ -2,39 +2,31 @@ import { Hono } from 'hono'
 import { serve } from '@hono/node-server'
 
 const app = new Hono()
-const imageUrl = "https://raw.githubusercontent.com/base-org/brand-kit/main/logo/symbol/Base_Symbol_Blue.png"
 
+// Perfected Frame Tags for 100% App Compatibility
 app.get('/', (c) => {
   const host = c.req.header('host')
+  const imageUrl = "https://raw.githubusercontent.com/base-org/brand-kit/main/logo/symbol/Base_Symbol_Blue.png"
+  
   return c.html(`<!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
   <title>Base Predict</title>
   <meta property="og:title" content="Base Predict" />
   <meta property="og:image" content="${imageUrl}" />
   <meta property="fc:frame" content="vNext" />
   <meta property="fc:frame:image" content="${imageUrl}" />
-  <meta property="fc:frame:button:1" content="START BETTING" />
-  <meta property="fc:frame:post_url" content="https://${host}/api/market" />
-</head>
-<body><h1>Base Predict Market is Live</h1></body>
-</html>`)
-})
-
-app.post('/api/market', (c) => {
-  const host = c.req.header('host')
-  return c.html(`<!DOCTYPE html>
-<html>
-<head>
-  <meta property="fc:frame" content="vNext" />
-  <meta property="fc:frame:image" content="${imageUrl}" />
-  <meta property="fc:frame:button:1" content="Bet YES (0.001 ETH)" />
+  <meta property="fc:frame:button:1" content="BET YES (0.001 ETH)" />
   <meta property="fc:frame:button:1:action" content="tx" />
   <meta property="fc:frame:button:1:target" content="https://${host}/api/vote/yes" />
-  <meta property="fc:frame:button:2" content="Bet NO (0.001 ETH)" />
+  <meta property="fc:frame:button:2" content="BET NO (0.001 ETH)" />
   <meta property="fc:frame:button:2:action" content="tx" />
   <meta property="fc:frame:button:2:target" content="https://${host}/api/vote/no" />
 </head>
+<body>
+  <h1>Base Prediction Market is Online</h1>
+</body>
 </html>`)
 })
 
