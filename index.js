@@ -5,7 +5,8 @@ const app = new Hono()
 
 app.get('/', (c) => {
   const host = c.req.header('host')
-  const imageUrl = "https://emerald-glaring-marlin-155.mythic.be/api/og?title=Base%20Predict"
+  // Use a stable Base logo image
+  const imageUrl = "https://raw.githubusercontent.com/base-org/brand-kit/main/logo/symbol/Base_Symbol_Blue.png"
   const txUrl = `https://${host}/api/vote`
 
   return c.html(`
