@@ -3,15 +3,12 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "tsx index.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "frog": "latest",
     "hono": "latest",
     "@hono/node-server": "latest",
-    "viem": "latest",
-    "tsx": "latest",
-    "react": "latest",
-    "react-dom": "latest"
+    "viem": "latest"
   }
 }

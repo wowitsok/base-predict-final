@@ -1,24 +1,20 @@
-/** @jsxImportSource frog/jsx */
-import { Frog, Button } from 'frog'
+import { Frog } from 'frog'
 import { serve } from '@hono/node-server'
 
 export const app = new Frog({
   title: 'Base Predict Final',
 })
 
-// Railway Health Check
+// Root route for health check - PURE TEXT
 app.get('/', (c) => c.text('Predict Market is LIVE and STABLE!'))
 
+// Frame route using external image to avoid JSX complexity
 app.frame('/frame', (c) => {
   return c.res({
-    image: (
-      <div style={{ color: 'white', display: 'flex', flexDirection: 'column', fontSize: 60, background: '#0052ff', width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
-        <p>Will ETH hit 000?</p>
-      </div>
-    ),
+    image: 'https://emerald-glaring-marlin-155.mythic.be/api/og?title=Base%20Predict&description=Will%20ETH%20hit%20000?',
     intents: [
-      <Button.Transaction target="/vote/yes">Bet YES</Button.Transaction>,
-      <Button.Transaction target="/vote/no">Bet NO</Button.Transaction>,
+      { label: 'Bet YES', action: 'tx', target: '/vote/yes' },
+      { label: 'Bet NO', action: 'tx', target: '/vote/no' }
     ],
   })
 })
@@ -41,7 +37,7 @@ app.transaction('/vote/:side', (c) => {
         }
       ],
       to: '0xB4085493f432B86DfE830Fed7CD94F05008671Db',
-      value: 1000000000000000n, 
+      value: '1000000000000000', 
     },
   })
 })
