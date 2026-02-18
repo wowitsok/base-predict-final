@@ -2,26 +2,25 @@ import { Hono } from 'hono'
 import { serve } from '@hono/node-server'
 
 const app = new Hono()
-
 const imageUrl = "https://raw.githubusercontent.com/base-org/brand-kit/main/logo/symbol/Base_Symbol_Blue.png"
 
-// 1. Landing Page (Warpcast ise turant pakad lega)
 app.get('/', (c) => {
   const host = c.req.header('host')
   return c.html(`<!DOCTYPE html>
 <html>
 <head>
+  <title>Base Predict</title>
+  <meta property="og:title" content="Base Predict" />
+  <meta property="og:image" content="${imageUrl}" />
   <meta property="fc:frame" content="vNext" />
   <meta property="fc:frame:image" content="${imageUrl}" />
-  <meta property="fc:frame:button:1" content="Enter Prediction Market" />
+  <meta property="fc:frame:button:1" content="START BETTING" />
   <meta property="fc:frame:post_url" content="https://${host}/api/market" />
-  <meta property="og:image" content="${imageUrl}" />
 </head>
-<body><h1>Base Predict</h1></body>
+<body><h1>Base Predict Market is Live</h1></body>
 </html>`)
 })
 
-// 2. Bet Page (Start dabane ke baad aayega)
 app.post('/api/market', (c) => {
   const host = c.req.header('host')
   return c.html(`<!DOCTYPE html>
@@ -39,7 +38,6 @@ app.post('/api/market', (c) => {
 </html>`)
 })
 
-// 3. Transaction Logic
 app.post('/api/vote/:side', (c) => {
   return c.json({
     chainId: 'eip155:8453',
