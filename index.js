@@ -3,33 +3,34 @@ import { serve } from '@hono/node-server'
 
 const app = new Hono()
 
-// The Main Root Link is now the Frame
 app.get('/', (c) => {
   const host = c.req.header('host')
-  const imageUrl = "https://emerald-glaring-marlin-155.mythic.be/api/og?title=Base%20Predict&description=Will%20ETH%20hit%20$4000?"
+  const imageUrl = "https://emerald-glaring-marlin-155.mythic.be/api/og?title=Base%20Predict"
   const txUrl = `https://${host}/api/vote`
 
   return c.html(`
     <!DOCTYPE html>
     <html>
       <head>
+        <title>Base Predict</title>
+        <meta property="og:title" content="Base Predict" />
+        <meta property="og:image" content="${imageUrl}" />
         <meta property="fc:frame" content="vNext" />
         <meta property="fc:frame:image" content="${imageUrl}" />
-        <meta property="fc:frame:button:1" content="Bet YES (0.001 ETH)" />
+        <meta property="fc:frame:button:1" content="Bet YES" />
         <meta property="fc:frame:button:1:action" content="tx" />
         <meta property="fc:frame:button:1:target" content="${txUrl}/yes" />
-        <meta property="fc:frame:button:2" content="Bet NO (0.001 ETH)" />
+        <meta property="fc:frame:button:2" content="Bet NO" />
         <meta property="fc:frame:button:2:action" content="tx" />
         <meta property="fc:frame:button:2:target" content="${txUrl}/no" />
       </head>
       <body>
-        <h1>Predict Market is LIVE and STABLE!</h1>
+        <h1>Predict Market is LIVE</h1>
       </body>
     </html>
   `)
 })
 
-// Transaction endpoint
 app.post('/api/vote/:side', (c) => {
   return c.json({
     chainId: 'eip155:8453',
