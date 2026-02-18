@@ -3,17 +3,36 @@ import { serve } from '@hono/node-server'
 
 const app = new Hono()
 
-app.onError((err, c) => {
-  console.error(err)
-  return c.text(`Error: ${err.message}`, 500)
-})
-
+// Health check
 app.get('/', (c) => c.text('Predict Market is LIVE and STABLE!'))
 
+// Frame route with standard meta tags
 app.get('/frame', (c) => {
-  return c.html('<!DOCTYPE html><html><head><meta property="fc:frame" content="vNext"/><meta property="fc:frame:image" content="https://emerald-glaring-marlin-155.mythic.be/api/og?title=Base%20Predict"/><meta property="fc:frame:button:1" content="BET YES"/><meta property="fc:frame:button:1:action" content="tx"/><meta property="fc:frame:button:1:target" content="https://' + c.req.header('host') + '/api/vote/yes"/></head><body><h1>Frame</h1></body></html>')
+  const host = c.req.header('host')
+  const imageUrl = "https://emerald-glaring-marlin-155.mythic.be/api/og?title=Base%20Predict&description=Will%20ETH%20hit%20$4000?"
+  const txUrl = `https://${host}/api/vote`
+
+  return c.html(`
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta property="fc:frame" content="vNext" />
+        <meta property="fc:frame:image" content="${imageUrl}" />
+        <meta property="fc:frame:button:1" content="Bet YES (0.001 ETH)" />
+        <meta property="fc:frame:button:1:action" content="tx" />
+        <meta property="fc:frame:button:1:target" content="${txUrl}/yes" />
+        <meta property="fc:frame:button:2" content="Bet NO (0.001 ETH)" />
+        <meta property="fc:frame:button:2:action" content="tx" />
+        <meta property="fc:frame:button:2:target" content="${txUrl}/no" />
+      </head>
+      <body>
+        <h1>Base Predict Frame</h1>
+      </body>
+    </html>
+  `)
 })
 
+// Transaction endpoint
 app.post('/api/vote/:side', (c) => {
   return c.json({
     chainId: 'eip155:8453',
